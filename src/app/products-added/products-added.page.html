@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Carrito</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-list style="margin-top: 15px;">
+        <div *ngFor="let item of products; let i = index">
+          <ion-item *ngIf="item.added" (click)="getProductByDescription(item.description)">
+            <!-- <ion-item href="/account/{{i}}" (click)="obtainStudent(i)"> -->
+              <img style="height: 50px; padding: 10px;" [src]="item.photo" />
+              <ion-label>
+                {{item.description}}
+                <ion-chip color="primary">${{item.price}}</ion-chip>
+              </ion-label>
+              <ion-button color="danger" (click)="removeOfTotal(item.price)" (click)="removeOfCart(i)" (click)="presentToast('bottom')" size="small" shape="round">
+                <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+          </ion-item>
+        </div>
+        <ion-item>
+          <ion-label style="text-align: right;">
+            ${{total}}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-content>

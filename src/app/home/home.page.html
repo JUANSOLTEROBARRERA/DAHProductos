@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Productos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-row>
+    <ion-col>
+      <ion-list style="margin-top: 15px;">
+        <div *ngFor="let item of products; let i = index">
+          <ion-item *ngIf="!item.added" (click)="getProductByDescription(item.description)">
+            <!-- <ion-item href="/account/{{i}}" (click)="obtainStudent(i)"> -->
+              <img style="height: 50px; padding: 10px;" [src]="item.photo" />
+              <ion-label>
+                {{item.description}}
+                <ion-chip color="primary">${{item.price}}</ion-chip>
+              </ion-label>
+              <ion-button (click)="sum(item.price)" (click)="addToCart(i)" (click)="presentToast('bottom')" size="default" shape="round">
+                <ion-icon name="cart-outline"></ion-icon>
+              </ion-button>
+          </ion-item>
+        </div>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-fab (click)="viewCart()" slot="fixed" vertical="top" horizontal="end" [edge]="true">
+    <ion-fab-button>
+      <ion-icon name="cart-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab id="open-custom-dialog" slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-modal id="example-modal" #modal trigger="open-custom-dialog">
+    <ng-template>
+      <div class="wrapper">
+        <h1>Nuevo producto</h1>
+
+        <div style="margin: 10%">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input [(ngModel)]="name" placeholder="Your name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Precio</ion-label>
+          <ion-input [(ngModel)]="price" placeholder="Your name">$</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">URL Foto</ion-label>
+          <ion-input [(ngModel)]="photo" placeholder="Your name"></ion-input>
+        </ion-item>
+        <ion-button (click)="newProduct()" style="margin-top: 15px;" shape="round">Agregar</ion-button>
+      </div>
+
+      </div>
+    </ng-template>
+  </ion-modal>
+  
+</ion-content>
