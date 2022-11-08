@@ -16,6 +16,7 @@
               <img style="height: 50px; padding: 10px;" [src]="item.photo" />
               <ion-label>
                 {{item.description}}
+                <br>
                 <ion-chip color="primary">${{item.price}}.00 MXN</ion-chip>
               </ion-label>
               <ion-button (click)="sum(item.price)" (click)="addToCart(i)" (click)="presentToast('bottom')" size="default" shape="round">
