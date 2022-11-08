@@ -61,7 +61,8 @@ export class HomePage {
   }
 
   public newProduct(){
-    this.productosSer.addNewProduct(this.name,this.price,this.photo);
+    var aux: number = +this.price;
+    this.productosSer.addNewProduct(this.name,aux,this.photo);
     this.products=this.productosSer.getProducts();
 
     this.name = "";

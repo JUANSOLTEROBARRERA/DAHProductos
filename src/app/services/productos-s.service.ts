@@ -8,6 +8,7 @@ import { Products } from '../models/products';
 export class ProductosSService {
 
   private products: Products[]; //PENDIENTE CREACION DE MODELO
+  private carrito: number[][];
   private total: number = 0;
 
   constructor() {
@@ -16,19 +17,22 @@ export class ProductosSService {
           photo: "https://picsum.photos/200",
           description: "Computadora",
           price: 35000,
-          added: false
+          added: false,
+          quantity: 1
         },
         {
           photo: "https://picsum.photos/201",
           description: "Tableta",
           price: 15000,
-          added: false
+          added: false,
+          quantity: 1
         },
         {
           photo: "https://picsum.photos/202",
           description: "Telefono",
           price: 8000,
-          added: false
+          added: false,
+          quantity: 1
         }
       ]
    }
@@ -48,8 +52,10 @@ export class ProductosSService {
   public addToCart(pos:number){
     this.products[pos].added=true;
   }
-  public removeOfCart(pos:number){
+  public removeOfCart(pos:number,price:number,quan:number){
     this.products[pos].added=false;
+    this.products[pos].quantity=1;
+    this.total-=(price*quan)
   }
   public addNewProduct(name:string,price:number,photo:string){
     let newProduct: Products;
@@ -57,7 +63,8 @@ export class ProductosSService {
       photo: photo,
       description: name,
       price: price,
-      added: false
+      added: false,
+      quantity: 1
     }
     this.products.push(newProduct);
   }
@@ -71,5 +78,11 @@ export class ProductosSService {
   }
   public getTotal():number{
     return this.total;
+  }
+  public addQuantity(pos:number){
+    this.products[pos].quantity++
+  }
+  public reduceQuantity(pos:number){
+    this.products[pos].quantity--
   }
 }

@@ -16,7 +16,7 @@
               <img style="height: 50px; padding: 10px;" [src]="item.photo" />
               <ion-label>
                 {{item.description}}
-                <ion-chip color="primary">${{item.price}}</ion-chip>
+                <ion-chip color="primary">${{item.price}}.00 MXN</ion-chip>
               </ion-label>
               <ion-button (click)="sum(item.price)" (click)="addToCart(i)" (click)="presentToast('bottom')" size="default" shape="round">
                 <ion-icon name="cart-outline"></ion-icon>
@@ -58,7 +58,7 @@
           <ion-label position="floating">URL Foto</ion-label>
           <ion-input [(ngModel)]="photo" placeholder="Your name"></ion-input>
         </ion-item>
-        <ion-button (click)="newProduct()" style="margin-top: 15px;" shape="round">Agregar</ion-button>
+        <ion-button (click)="newProduct()" style="margin-top: 15px; text-align: center;" shape="round">Agregar</ion-button>
       </div>
 
       </div>

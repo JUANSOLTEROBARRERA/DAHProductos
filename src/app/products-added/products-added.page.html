@@ -17,9 +17,17 @@
               <img style="height: 50px; padding: 10px;" [src]="item.photo" />
               <ion-label>
                 {{item.description}}
-                <ion-chip color="primary">${{item.price}}</ion-chip>
+                <ion-chip style="margin-right: 7%;" color="primary">${{item.price}}</ion-chip>
+
+                <ion-button *ngIf="item.quantity>1" color="primary" style="margin-right: 3%;"  (click)="reduceQuantity(i,item.price)"  size="small" shape="round">
+                  <ion-icon name="remove-outline"></ion-icon>
+                </ion-button>
+                {{item.quantity}}
+                <ion-button style="margin-left: 3%;" color="primary" (click)="addQuantity(i,item.price)" size="small" shape="round">
+                  <ion-icon name="add-outline"></ion-icon>
+                </ion-button>
               </ion-label>
-              <ion-button color="danger" (click)="removeOfTotal(item.price)" (click)="removeOfCart(i)" (click)="presentToast('bottom')" size="small" shape="round">
+              <ion-button color="danger" (click)="removeOfCart(i,item.price,item.quantity)" size="small" shape="round">
                 <ion-icon name="close-outline"></ion-icon>
               </ion-button>
           </ion-item>

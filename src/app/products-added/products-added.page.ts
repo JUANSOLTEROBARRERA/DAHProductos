@@ -11,6 +11,7 @@ export class ProductsAddedPage implements OnInit {
 
   public products: Products[];
   public total: number = 0;
+  
 
   constructor(private productosSer: ProductosSService) {
     this.products=this.productosSer.getProducts();
@@ -20,15 +21,20 @@ export class ProductsAddedPage implements OnInit {
   ngOnInit() {
   }
 
-  public removeOfCart(pos: number){
-    this.productosSer.removeOfCart(pos);
+  public removeOfCart(pos: number,price:number,quan:number){
+    this.productosSer.removeOfCart(pos,price,quan);
     this.products = this.productosSer.getProducts();
+    this.total = this.productosSer.getTotal()
   }
   public sum(price:number){
     this.total = this.productosSer.sum(price);
   }
-  public removeOfTotal(price:number){
+  public addQuantity(pos:number,price:number){
+    this.productosSer.addQuantity(pos);
+    this.total = this.productosSer.sum(price);
+  }
+  public reduceQuantity(pos:number,price:number){
+    this.productosSer.reduceQuantity(pos);
     this.total = this.productosSer.sub(price);
   }
-
 }

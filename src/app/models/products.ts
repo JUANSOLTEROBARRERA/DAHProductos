@@ -3,4 +3,5 @@ export class Products {
     description: String;
     price: number;
     added: Boolean;
+    quantity: number;
 }
