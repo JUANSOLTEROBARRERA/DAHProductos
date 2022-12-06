@@ -19,11 +19,11 @@
                 {{item.description}}
                 <ion-chip style="margin-right: 3%;" color="primary">${{item.price}}</ion-chip>
                 <br>
-                <ion-button *ngIf="item.quantity>1" color="primary" style="margin-right: 1%;"  (click)="reduceQuantity(i,item.price)"  size="small" shape="round">
+                <ion-button *ngIf="item.quantity>1" color="primary" style="margin-right: 1%;"  (click)="reduceQuantity(item.id,item)"  size="small" shape="round">
                   <ion-icon name="remove-outline"></ion-icon>
                 </ion-button>
                 {{item.quantity}}
-                <ion-button style="margin-left: 1%;" color="primary" (click)="addQuantity(i,item.price)" size="small" shape="round">
+                <ion-button style="margin-left: 1%;" color="primary" (click)="addQuantity(item.id,item)" size="small" shape="round">
                   <ion-icon name="add-outline"></ion-icon>
                 </ion-button>
               </ion-label>
@@ -34,7 +34,7 @@
         </div>
         <ion-item>
           <ion-label style="text-align: right;">
-            ${{total}}
+            ${{totalUnico}}
           </ion-label>
         </ion-item>
       </ion-list>

@@ -3,6 +3,7 @@ import { Products } from '../models/products';
 import { ProductosSService } from '../services/productos-s.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { Recibo } from '../models/recibo';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ export class HomePage {
   public name: string;
   public price: number;
   public photo: string;
-  public total: number = 0;
+  public total: Recibo[];
+  public totalUnico: number;
 
   public products: Products[];
 
@@ -27,6 +29,12 @@ export class HomePage {
       this.products=res;
       console.log(this.products)
     })
+
+    this.productosSer.getTotal().subscribe(res => {
+      this.total = res;
+      this.totalUnico=this.total[0].total;
+      console.log("El total es:"+this.totalUnico);
+    });
   }
   
   async presentToast(position: 'top' | 'middle' | 'bottom') {
@@ -56,7 +64,7 @@ export class HomePage {
   }
 
   public newProduct(){
-    this.productosSer.newProduct(this.name,this.price,this.photo,0);
+    this.productosSer.newProduct(this.name,this.price,this.photo,1);
     this.products=this.productosSer.getProducts();
 
     this.name = "";
@@ -75,8 +83,7 @@ public addToCart(product: Products){
   }
 
   
-
   public sum(price:number){
-    this.total = this.productosSer.sum(price)
+    this.productosSer.sum(price, this.totalUnico)
   }
 }
