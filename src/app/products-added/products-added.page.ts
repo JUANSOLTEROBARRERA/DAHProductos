@@ -14,18 +14,28 @@ export class ProductsAddedPage implements OnInit {
   
 
   constructor(private productosSer: ProductosSService) {
-    this.products=this.productosSer.getProducts();
-    this.total=this.productosSer.getTotal();
+    //this.products=this.productosSer.getProducts();
+    //this.total=this.productosSer.getTotal();
+
+    this.productosSer.getProductss().subscribe(res =>{
+      this.products=res;
+      //console.log(this.products)
+    })
+    this.total = 0;
   }
 
   ngOnInit() {
   }
 
-  public removeOfCart(pos: number,price:number,quan:number){
-    this.productosSer.removeOfCart(pos,price,quan);
-    this.products = this.productosSer.getProducts();
-    this.total = this.productosSer.getTotal()
+  public removeOfCart(id: string, item:Products){
+    item.added = false;
+
+    console.log(item)
+    this.productosSer.removeOfCart(id,item);
+    //this.products = this.productosSer.getProducts();
+    //this.total = this.productosSer.getTotal()
   }
+
   public sum(price:number){
     this.total = this.productosSer.sum(price);
   }

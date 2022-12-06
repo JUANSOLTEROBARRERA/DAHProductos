@@ -12,7 +12,7 @@
     <ion-col>
       <ion-list style="margin-top: 15px;">
         <div *ngFor="let item of products; let i = index">
-          <ion-item *ngIf="item.added" (click)="getProductByDescription(item.description)">
+          <ion-item *ngIf="item.added">
             <!-- <ion-item href="/account/{{i}}" (click)="obtainStudent(i)"> -->
               <img style="height: 50px; padding: 10px;" [src]="item.photo" />
               <ion-label>
@@ -27,7 +27,7 @@
                   <ion-icon name="add-outline"></ion-icon>
                 </ion-button>
               </ion-label>
-              <ion-button color="danger" (click)="removeOfCart(i,item.price,item.quantity)" size="small" shape="round">
+              <ion-button color="danger" (click)="removeOfCart(item.id,item)" size="small" shape="round">
                 <ion-icon name="close-outline"></ion-icon>
               </ion-button>
           </ion-item>

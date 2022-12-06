@@ -48,10 +48,11 @@ export class ProductosSService {
     return result;
   }
   
-  public removeOfCart(pos:number,price:number,quan:number){
-    this.products[pos].added=false;
-    this.products[pos].quantity=1;
-    this.total-=(price*quan)
+  public removeOfCart(id:string, item2:Products){
+    //this.products[pos].added=false;
+    //this.products[pos].quantity=1;
+    //this.total-=(price*quan)
+    this.firestore.doc('products/'+id).update(item2);
   }
   public addNewProduct(name:string,price:number,photo:string){
     let newProduct: Products;
@@ -103,9 +104,9 @@ public newProduct(name:string,price:number,photo:string, quantity:number) {
     return this.firestore.collection('products').snapshotChanges().pipe(
       map(actions=>{
         return actions.map(a=>{
-          console.log(a);
+          //console.log(a);
           const data = a.payload.doc.data() as Products;
-          console.log(data);
+          //console.log(data);
           const id = a.payload.doc.id;
           return {id,...data};
         });
