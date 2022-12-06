@@ -43,14 +43,9 @@ export class ProductosSService {
    public getProducts():Products[] {
     return this.products;
    }
-   public getProductByDescription(des:string): Products{
-    let item: Products;
-    item = this.products.find(
-      (products) => {
-        return products.description==des;
-      }
-    );
-    return item;
+   public getProductByID(id:string){
+    let result = this.firestore.collection('products').doc(id).valueChanges();
+    return result;
   }
   
   public removeOfCart(pos:number,price:number,quan:number){

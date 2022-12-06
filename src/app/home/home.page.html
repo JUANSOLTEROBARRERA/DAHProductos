@@ -11,7 +11,7 @@
     <ion-col>
       <ion-list style="margin-top: 15px;">
         <div *ngFor="let item of products; let i = index">
-          <ion-item *ngIf="!item.added" (click)="getProductByDescription(item.description)">
+          <ion-item *ngIf="!item.added" (click)="getProductByDescription(item.id)">
             <!-- <ion-item href="/account/{{i}}" (click)="obtainStudent(i)"> -->
               <img style="height: 50px; padding: 10px;" [src]="item.photo" />
               <ion-label>

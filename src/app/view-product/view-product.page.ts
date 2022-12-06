@@ -12,15 +12,26 @@ export class ViewProductPage implements OnInit {
 
   public product: Products;
 
-  constructor(private productService:ProductosSService, private aRoute:ActivatedRoute ) { }
+  constructor(private activatedRoute: ActivatedRoute, private productService:ProductosSService, private aRoute:ActivatedRoute ) { 
+    this.product = {
+      photo: "",
+      description: "",
+      price: 0,
+      added: true,
+      quantity: 0,
+      id: ""
+    }
+  }
 
   ngOnInit() {
-    this.aRoute.queryParams.subscribe(
-      (params) => {
-        console.log(params);
-        this.product = this.productService.getProductByDescription(params.description);
-      }
-    );
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.productService.getProductByID(params.id).subscribe(item => {
+        console.log(item);
+        this.product = item as Products;
+
+        console.log(this.product)
+      });
+    });
   }
 
 }

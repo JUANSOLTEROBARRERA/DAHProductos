@@ -39,11 +39,11 @@ export class HomePage {
     await toast.present();
   }
 
-  public getProductByDescription(des: string): void{
+  public getProductByDescription(id: string): void{
     this.router.navigate(
       ['/view-product'],
       {
-        queryParams: {description: des}
+        queryParams: {id: id}
       }
       );
   }
