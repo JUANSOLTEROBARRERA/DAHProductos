@@ -19,7 +19,7 @@
                 <br>
                 <ion-chip color="primary">${{item.price}}.00 MXN</ion-chip>
               </ion-label>
-              <ion-button (click)="sum(item.price)" (click)="addToCart(i)" (click)="presentToast('bottom')" size="default" shape="round">
+              <ion-button (click)="sum(item.price)" (click)="addToCart(item)" (click)="presentToast('bottom')" size="default" shape="round">
                 <ion-icon name="cart-outline"></ion-icon>
               </ion-button>
           </ion-item>

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Products } from '../models/products';
+import { map } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/compat/firestore' 
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -11,7 +14,7 @@ export class ProductosSService {
   private carrito: number[][];
   private total: number = 0;
 
-  constructor() {
+  constructor(private firestore: AngularFirestore) {
       this.products = [
         {
           photo: "https://picsum.photos/200",
@@ -49,9 +52,7 @@ export class ProductosSService {
     );
     return item;
   }
-  public addToCart(pos:number){
-    this.products[pos].added=true;
-  }
+  
   public removeOfCart(pos:number,price:number,quan:number){
     this.products[pos].added=false;
     this.products[pos].quantity=1;
@@ -84,5 +85,36 @@ export class ProductosSService {
   }
   public reduceQuantity(pos:number){
     this.products[pos].quantity--
+  }
+
+
+  public addToCart(producto:Products){
+    producto.added=true;
+    this.firestore.collection('products').doc(producto.id).update(producto);
+  }
+public newProduct(name:string,price:number,photo:string, quantity:number) {
+    let newProduct: Products;
+    newProduct = {
+      photo: photo,
+      description: name,
+      price: price,
+      added: false,
+      quantity: quantity
+    }
+    this.firestore.collection('products').add(newProduct)
+  }
+
+  public getProductss(): Observable<Products[]>{
+    return this.firestore.collection('products').snapshotChanges().pipe(
+      map(actions=>{
+        return actions.map(a=>{
+          console.log(a);
+          const data = a.payload.doc.data() as Products;
+          console.log(data);
+          const id = a.payload.doc.id;
+          return {id,...data};
+        });
+      })
+    );
   }
 }

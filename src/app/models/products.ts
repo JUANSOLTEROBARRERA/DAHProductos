@@ -4,4 +4,5 @@ export class Products {
     price: number;
     added: Boolean;
     quantity: number;
+    id?:string;
 }

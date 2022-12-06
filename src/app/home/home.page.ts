@@ -21,8 +21,12 @@ export class HomePage {
   public products: Products[];
 
   constructor(private toastController: ToastController,private productosSer: ProductosSService, private router: Router) {
-    this.products=this.productosSer.getProducts();
-    this.total=this.productosSer.getTotal();
+    //this.products=this.productosSer.getProducts();
+    //this.total=this.productosSer.getTotal();
+    this.productosSer.getProductss().subscribe(res =>{
+      this.products=res;
+      console.log(this.products)
+    })
   }
   
   async presentToast(position: 'top' | 'middle' | 'bottom') {
@@ -43,15 +47,25 @@ export class HomePage {
       }
       );
   }
-  public addToCart(pos: number){
-    this.productosSer.addToCart(pos);
-    this.products = this.productosSer.getProducts();
-  }
+  
 
   public viewCart(){
     this.router.navigate(
       ['/products-added']
       );
+  }
+
+  public newProduct(){
+    this.productosSer.newProduct(this.name,this.price,this.photo,0);
+    this.products=this.productosSer.getProducts();
+
+    this.name = "";
+    this.price = 0;
+    this.photo = "";
+  }
+public addToCart(product: Products){
+    this.productosSer.addToCart(product);
+    this.products = this.productosSer.getProducts();
   }
   
   public addNewProduct(){
@@ -60,15 +74,7 @@ export class HomePage {
       );
   }
 
-  public newProduct(){
-    var aux: number = +this.price;
-    this.productosSer.addNewProduct(this.name,aux,this.photo);
-    this.products=this.productosSer.getProducts();
-
-    this.name = "";
-    this.price = 0;
-    this.photo = "";
-  }
+  
 
   public sum(price:number){
     this.total = this.productosSer.sum(price)
